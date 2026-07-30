@@ -1,0 +1,32 @@
+concept_name,n_records,n_people,recs_per_person,min_age,max_age,age_span,is_module
+Viral sinusitis,17268,2686,6.43,0,109,109,FALSE
+Acute viral pharyngitis,10217,2606,3.92,0,105,105,FALSE
+Acute bronchitis,8184,2543,3.22,0,106,106,FALSE
+Otitis media,3605,2025,1.78,0,100,100,FALSE
+Streptococcal sore throat,2656,1677,1.58,0,110,110,FALSE
+Sprain of ankle,1915,1357,1.41,0,106,106,FALSE
+Sinusitis,1001,833,1.2,0,110,110,FALSE
+Concussion with no loss of consciousness,1013,852,1.19,0,101,101,FALSE
+Acute bacterial sinusitis,939,786,1.19,0,96,96,FALSE
+Whiplash injury to neck,825,708,1.17,0,103,103,FALSE
+Escherichia coli urinary tract infection,482,419,1.15,16,66,50,FALSE
+Sprain of wrist,770,677,1.14,0,105,105,FALSE
+Fracture of forearm,569,510,1.12,0,106,106,FALSE
+Fracture subluxation of wrist,493,442,1.12,1,105,104,FALSE
+Laceration of forearm,507,459,1.1,1,102,101,FALSE
+Laceration of thigh,499,455,1.1,0,108,108,FALSE
+Fracture of clavicle,492,449,1.1,0,100,100,FALSE
+Fracture of ankle,464,427,1.09,0,108,108,FALSE
+Laceration of hand,500,462,1.08,1,102,101,FALSE
+Facial laceration,497,459,1.08,1,103,102,FALSE
+Laceration of foot,484,448,1.08,0,104,104,FALSE
+First degree burn,384,359,1.07,1,109,108,FALSE
+Chronic sinusitis,825,812,1.02,0,110,110,FALSE
+Osteoarthritis,2694,2694,1.0,31,47,16,TRUE
+Peptic ulcer,802,802,1.0,24,34,10,TRUE
+Gastrointestinal hemorrhage,479,479,1.0,32,47,15,TRUE
+Ulcerative colitis,413,413,1.0,31,45,14,TRUE
+Esophagitis,409,409,1.0,31,44,13,TRUE
+Diverticular disease,405,405,1.0,32,47,15,TRUE
+Angiodysplasia of stomach,388,388,1.0,30,44,14,TRUE
+Polyp of colon,380,380,1.0,31,46,15,TRUE

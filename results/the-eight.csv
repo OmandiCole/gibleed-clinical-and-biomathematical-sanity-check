@@ -1,0 +1,9 @@
+module_role,condition,n_people,prevalence_pct,recs_per_person,min_age,max_age
+INDICATION,Osteoarthritis,2694,100.0,1.0,31,47
+OUTCOME,Gastrointestinal hemorrhage,479,17.8,1.0,32,47
+Upper GI (cause),Peptic ulcer,802,29.8,1.0,24,34
+Lower GI (cause),Ulcerative colitis,413,15.3,1.0,31,45
+Upper GI (cause),Esophagitis,409,15.2,1.0,31,44
+Lower GI (cause),Diverticular disease,405,15.0,1.0,32,47
+Upper GI (cause),Angiodysplasia of stomach,388,14.4,1.0,30,44
+Lower GI (cause),Polyp of colon,380,14.1,1.0,31,46
