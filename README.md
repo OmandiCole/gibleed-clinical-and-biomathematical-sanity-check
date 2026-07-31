@@ -2,9 +2,9 @@
 
 **Recovering an undocumented Synthea disease module from its output — using only SQL and clinical reasoning.**
 
-[FILL IN — Full Name], MD, MSc · PhD candidate, Biomathematics · [FILL IN — year] · [FILL IN — email] · [ORCID](https://orcid.org/0000-0003-4159-3853) · [LinkedIn](FILL IN)
+Andrew O. Cole, MD, MSc · PhD candidate, Biomathematics · 2017 · acole9@uw.edu . acole@strathmore.edu · [ORCID](https://orcid.org/0000-0003-4159-3853)
 
-> The mathematics tells you what shape a disease should leave in data. The medicine tells you when the shape is wrong.
+> The mathematics tells you what shape a disease should leave in data. The medicine tells you whether the shape is aligned or not.
 
 ---
 
@@ -26,13 +26,13 @@ GiBleed is flawless by every automated check. It is also, read as a clinician *a
 - **Eight conditions occur exactly once per person and never again.** Seven are the textbook differential diagnosis of GI bleeding — three upper GI, three lower GI, plus the outcome. The eighth is osteoarthritis, at **100% prevalence**.
 - **All eight sit in a ~15-year midlife window and stop by age 47** — in a database that records other conditions out to age 109. Viral sinusitis, recorded from age 0 to 109, is the positive control: the recorder works across the whole lifespan, so the silence after 47 is a *true absence*, not censoring.
 - **Nobody dies** — yet 98 people are over 100 and the population reaches 110.
-- **There is no confounding by indication** — in a dataset whose entire purpose is to teach the methods that remove confounding by indication.
+- **There is no confounding by indication**.
 
-Two independent rulers — records-per-person and the age envelope — were measured separately and select the **same eight conditions**, with nothing in between. Two unrelated measurements drawing the identical line don't describe a disease; they describe a code path. From that alone I reconstructed the generator's design intent, then read the metadata to check: Synthea, OMOP CDM v5.3.1, ETL-Synthea, 2019. The reconstruction was correct.
+Two independent rulers — records-per-person and the age envelope — were measured separately and select the **same eight conditions**, with nothing in between. Two unrelated measurements drawing the identical line likely describe a code path. From that alone I reconstructed the generator's design intent, then read the metadata to check: Synthea, OMOP CDM v5.3.1, ETL-Synthea, 2019.
 
-**None of this is a bug.** GiBleed was built to teach one method — NSAID → GI-bleed — and every artifact here is scaffolding holding that lesson up. For its intended purpose it is excellent: small, fast, portable, conformant, clean. The claim is narrower and, I think, useful: *fitness for purpose is a question no conformance check asks, and the OMOP CDM has no field for it.*
+**None of this is a bug.** GiBleed was built to teach one method — NSAID → GI-bleed — and every artifact here is scaffolding holding that lesson up. For its intended purpose it is excellent and it helped me understand the OMOP-CDM ecosystem: small, fast, portable, conformant, clean. The claim is narrower and, I think, useful: *fitness for purpose is a question no conformance check asks, and the OMOP CDM has no field for it.*
 
-> A flight simulator is perfect for practising landings and useless for studying what turbulence does to a body. Neither statement criticises the simulator. The only problem is that nobody wrote "not for turbulence research" on the box. This audit is the missing label.
+> A flight simulator is perfect for practising landings and not great for studying what turbulence does to a body. Neither statement criticises the simulator. The only problem is that nobody wrote "not for turbulence research" on the box. This work shows the utility of a multidomain sanity check that includes the turbulence angle (Biomathematics and Medicine) for full comformity.
 
 ---
 
@@ -51,7 +51,7 @@ Eight conditions, each occurring **exactly once per person**. Read as a clinicia
 | **Outcome** | **Gastrointestinal hemorrhage** | 479 | 17.8% | 32–47 | Outcome |
 | **Indication** | **Osteoarthritis** | 2,694 | **100%** | 31–47 | Indication |
 
-Angiodysplasia is a disease of the elderly (typically >60, in the context of aortic stenosis); here it appears in 388 people aged 30–44 and never again. Colon polyps are finished by 46, in a world where screening now begins at 45 precisely because that is when they start appearing. The clinical impossibility isn't any one age — it's the combination of 100% prevalence, hard truncation at 47, and complete absence of recurrence in a population that lives to 110.
+Angiodysplasia is a disease of the elderly (typically >60, in the context of aortic stenosis); here it appears in 388 people aged 30–44 and never again. Colon polyps are finished by 46 in the dataset, in a world where screening now begins at 45 precisely because that is when they start appearing. The clinical impossibility isn't any one age — it's the combination of 100% prevalence, hard truncation at 47, and the absence of recurrence in a population that lives to 110.
 
 ---
 
@@ -59,17 +59,17 @@ Angiodysplasia is a disease of the elderly (typically >60, in the context of aor
 
 OHDSI's method is **federated**: an analytic package is written once and executed at many sites against local CDM instances. Patient-level data never moves; only aggregate results return. That architecture has a specific blind spot.
 
-If a site's ETL introduces a *topology* artifact — collapsing recurrent encounters into a single record, gating an age range, dropping a mortality feed — the site's data still passes conformance, the results still come back well-formed, and genuine cross-site heterogeneity gets attributed to **population differences** when it is really **ETL differences**. That is a confounder introduced by infrastructure, invisible to every tool currently pointed at the problem.
+If a site's ETL introduces a *topology* artifact — collapsing recurrent encounters into a single record, gating an age range, dropping a mortality feed — the site's data may still pass conformance, the results still come back well-formed, and genuine cross-site heterogeneity gets attributed to **population differences** when it may really be **ETL differences**. That is a confounder introduced by infrastructure, invisible to every tool currently pointed at the problem and including this type of multidisciplinary sanity checks at the source concept may eliminate or reduce this potential confounder.
 
 **The implication: data quality has to be established at the source, not rescued during analysis.** A sanity check that reads structure *and* pathophysiology *and* topology, run at each node, catches these before they enter the federation. Run afterwards, all you can do is discover that sites disagree and guess why.
 
-That check requires three disciplines in one room — which is why this is a **staffing argument, not a personal one**:
+That check requires three disciplines in one room:
 
 | Domain | The question it asks | GiBleed |
 |---|---|---|
 | Computer science | Is the value well-formed? | ✅ Passes |
 | Medicine | Is this what the disease naturally does? | ❌ (this audit) |
-| Biomathematics | Is this a shape a disease can leave? | ❌ (this audit) |
+| Biomathematics | Is this a topological shape a disease can leave? | ❌ (this audit) |
 
 A CS-trained data-quality engineer passes this dataset — *correctly*, by every standard in the toolkit. A clinician without modelling sees the ages are wrong but not that the *shape* is wrong. A modeller without medicine sees `recs_per_person = 1.00` and has no prior that says it should be 6. The findings live only in the overlap.
 
@@ -77,11 +77,9 @@ A CS-trained data-quality engineer passes this dataset — *correctly*, by every
 
 ## The single most consequential finding
 
-355 of 479 GI-bleed patients are on celecoxib, and the drug precedes the bleed **355 times out of 355** — zero reversals, zero same-day ties. In the real world, celecoxib is channelled to exactly the patients already at elevated GI risk; that channelling is the definition of **confounding by indication**, and it is the entire reason NSAID → GI-bleed is a hard causal question rather than a division problem.
+355 of 479 GI-bleed patients are on celecoxib, and the drug precedes the bleed **355 times out of 355** — no reversals, no same-day ties. In the real world, celecoxib is channelled to exactly the patients already at elevated GI risk; that channelling is the definition of **confounding by indication**, and it is the entire reason NSAID → GI-bleed is a hard causal question rather than a division problem.
 
-GiBleed contains none of it. Every confounding-control method — propensity scores, IPTW, new-user designs, negative controls, self-controlled designs — runs cleanly, converges, and returns plausible numbers. They have to: each exists to subtract a bias, and here each subtracts zero and returns the number it was handed.
-
-> A dataset built to teach a method for handling confounding contains no confounding. It teaches the mechanics perfectly and the reason for the mechanics not at all. **A method "validated against GiBleed" has not been validated — it is a lifeboat tested in a swimming pool.**
+GiBleed does not contains it. Every confounding-control method — propensity scores, IPTW, new-user designs, negative controls, self-controlled designs — runs cleanly, converges, and returns plausible numbers. They have to since each exists to subtract a bias, and here each subtracts zero and returns the number it was handed.
 
 ---
 
@@ -147,17 +145,9 @@ All seven queries: [`sql/audit-queries.sql`](sql/audit-queries.sql) · Full note
 
 ---
 
-## What this is meant to show about how I work
-
-- I move fluently between **clinical medicine, biomathematics, and the OMOP/OHDSI stack**, and I use each to check the others.
-- I treat **"passes the checks"** and **"fit for the question"** as different claims, and I can say precisely why.
-- I hold my own work to the standard I hold the data to. This audit shipped with a public [**Errors made and corrected**](paper/gibleed-audit-paper.pdf) section — including that I initially described the age gradient as "inverted" (it isn't; it's monotone but shifted young and truncated), caught it, and corrected it — and with an explicit note that prior work (Chen et al. 2019; Wagner & Blacketer 2024) made the *broad* point first. Applying the standard to your own work, in public, is the discipline the audit exists to demonstrate.
-
----
-
 ## Scope and limitations
 
-This describes **this dataset**, not Synthea in general — prior work covers Synthea at scale. GI conditions in the 30s and 40s are individually plausible; the impossibility is their combination with 100% prevalence, truncation at 47, and zero recurrence. Osteoarthritis was read via `condition_concept_id = 192671` without descendant expansion. I have **not** read Synthea's source to confirm the eight conditions correspond to one discrete generator component — that is the falsifiable part, and I would welcome being checked. Corrections are welcome via issues.
+This describes **this dataset**, not Synthea in general — prior work covers Synthea at scale. GI conditions in the 30s and 40s are individually plausible; the improbability is their combination with 100% prevalence, truncation at 47, and zero recurrence. Osteoarthritis was read via `condition_concept_id = 192671` without descendant expansion. I have **not** read Synthea's source to confirm the eight conditions correspond to one discrete generator component — that is the falsifiable part, and corrections are welcome via issues.
 
 ---
 
@@ -165,16 +155,22 @@ This describes **this dataset**, not Synthea in general — prior work covers Sy
 
 If this is useful, please cite via [`CITATION.cff`](CITATION.cff), or:
 
-> [Full Name]. *GiBleed, read as a patient population: recovering a synthetic-data generator's disease module from its output.* Self-directed, [year]. https://github.com/[user]/gibleed-clinical-audit
+> Cole, Andrew O. *GiBleed, read as a patient population: recovering a synthetic-data generator's disease module from its output.* Self-directed, [year]. https://github.com/[user]/gibleed-clinical-audit
 
 ---
 
 ## About
 
-[FILL IN — 2–3 sentences: who you are, the intersection you work at, and the kind of team/role you're looking for — e.g. real-world evidence, pharmacoepidemiology, observational health data science, or data quality in a federated network.]
+I am a physician datascientist with mathematical modeling experience in disease dynamics along the path from data acquisition and extraction, prepation (e.g. EDA and processing for QC), analysis, reporting and visualization, to revelation of inherent insights. I thrive in a multidisciplinary setting where downstream inference and action on findings is dependent on clean data that is representative of the population from which it emanated. I am looking for a team role needing data sanity checks (after extration from the source but before tranformation and analysis) from the intersection of three domains. Potential fits include: real-world evidence, pharmacoepidemiology, observational health data science, or data quality in a federated network such as the OMOP-CDM ETL pipeline.
 
-**Contact:** [FILL IN — email] · [ORCID](https://orcid.org/0000-0003-4159-3853) · [LinkedIn](FILL IN)
+**Contact:** acole9@uw.edu · [ORCID](https://orcid.org/0000-0003-4159-3853)
 
 ## License
 
 Released under the [MIT License](LICENSE). Findings and errors are my own; corrections welcome via issues.
+
+
+
+```R
+
+```
