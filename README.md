@@ -161,7 +161,7 @@ If this is useful, please cite via [`CITATION.cff`](CITATION.cff), or:
 
 ## About
 
-I am a physician datascientist with mathematical modeling experience in disease dynamics along the path from data acquisition and extraction, prepation (e.g. EDA and processing for QC), analysis, reporting and visualization, to revelation of inherent insights. I thrive in a multidisciplinary setting where downstream inference and action on findings is dependent on clean data that is representative of the population from which it emanated. I am looking for a team role needing data sanity checks (after extration from the source but before tranformation and analysis) from the intersection of three domains. Potential fits include: real-world evidence, pharmacoepidemiology, observational health data science, or data quality in a federated network such as the OMOP-CDM ETL pipeline.
+I am a physician data scientist with mathematical modeling experience in disease dynamics along the path from data acquisition and extraction, prepation (e.g. EDA and processing for QC), analysis, reporting and visualization, to revelation of inherent insights. I thrive in a multidisciplinary setting where downstream inference and action on findings is dependent on clean data that is representative of the population from which it emanated. I am looking for a team role needing data sanity checks (after extration from the source but before tranformation and analysis) from the intersection of three domains. Potential fits include: real-world evidence, pharmacoepidemiology, observational health data science, or data quality in a federated network such as the OMOP-CDM ETL pipeline.
 
 **Contact:** acole9@uw.edu · [ORCID](https://orcid.org/0000-0003-4159-3853)
 
