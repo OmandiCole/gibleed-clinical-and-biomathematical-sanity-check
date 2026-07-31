@@ -1,12 +1,12 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
-title: "GiBleed, read as a patient population: recovering a synthetic-data generator's disease module from its output"
+title: "GiBleed Sanity Check Self-directed Study"
 authors:
   - family-names: Cole
     given-names: Andrew O.
     orcid: "https://orcid.org/0000-0003-4159-3853"
 version: "1.0.0"
-date-released: "2026-01-01"
+date-released: "2026-07-30"
 license: MIT
 repository-code: "https://github.com/OmandiCole/gibleed-clinical-audit"
 keywords:
